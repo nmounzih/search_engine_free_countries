@@ -4,6 +4,7 @@ conn = psycopg2.connect("dbname=search_engine_project user=nadiamounzih host=/tm
 
 cur = conn.cursor()
 
+
 def add_record(cur):
     name = input("What is the name of the country? ")
     capital = input("Enter capital: ")
@@ -22,7 +23,7 @@ def search_record(cur):
         search_name = input("\nPlease enter name of country: ")
         cur.execute("SELECT * from country WHERE name = %s", (search_name,))
         current = cur.fetchone()
-        if current != None:
+        if current is not None:
             print("Country:", current[1])
             print("Capital:", current[2])
             print("Population (millions):", current[3])
@@ -36,7 +37,7 @@ def search_record(cur):
         search_status = input("Please enter Freedom House status (Free, Not Free, or Partly Free): ")
         cur.execute("SELECT * from country WHERE status = %s", (search_status,))
         current = cur.fetchall()
-        if current != None:
+        if current is not None:
             for data_tupe in current:
                 print("\n\n\nCountry:", data_tupe[1])
                 print("Capital:", data_tupe[2])
@@ -47,17 +48,27 @@ def search_record(cur):
                 print("Top Export:", data_tupe[7])
 
 
+def update_record(cur):
+    country_to_update = input("Which country would you like to update? ")
+    field_to_update = input("Which field would you like to update? ")
+    update_entry = input("Please enter the new entry: ")
+    cur.execute("UPDATE country SET %s = %s WHERE name = %s", (field_to_update, update_entry, country_to_update))
+
+
 def main():
     while True:
-        first_options = input(("\nGlobal Stats Database. Options:\n\n\t\t[A]dd\n\t\t[S]earch\n\t\t[Q]uit\n")).lower()
+        first_options = input(("\nGlobal Stats Database. Options:\n\n\t\t[A]dd\n\t\t[S]earch\n\t\t[U]pdate\n\n\t\t[Q]uit\n")).lower()
         if first_options == 'a' or first_options == 'add':
             add_record(cur)
         elif first_options == 's' or first_options == 'search':
             search_record(cur)
+        elif first_options == 'u':
+            update_record(cur)
         elif first_options == 'q' or first_options == 'quit':
             exit()
         else:
             print("That was not an option. Try again. ")
+
 
 main()
 
