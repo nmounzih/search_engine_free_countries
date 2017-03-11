@@ -18,7 +18,7 @@ def add_record(cur):
 
 
 def search_record(cur):
-    user_choice = int(input("\n\nSearch options: [1] country name or [2] Freedom House status? "))
+    user_choice = int(input("\n\nSearch options: [1] country name or [2] Freedom House status or [3] highest/lowest aggregate scores? "))
     if user_choice == 1:
         search_name = input("\nPlease enter name of country: ")
         cur.execute("SELECT * from country WHERE name = %s", (search_name,))
@@ -46,6 +46,8 @@ def search_record(cur):
                 print("Freedom Status:", data_tupe[5])
                 print("Official Language:", data_tupe[6])
                 print("Top Export:", data_tupe[7])
+    elif user_choice == 3:
+        order_record(cur)
 
 
 def update_record(cur):
@@ -61,9 +63,27 @@ def delete_record(cur):
     cur.execute("DELETE FROM country WHERE name = %s", (country_to_delete,))
     print("Your information has been saved.")
 
+
+def order_record(cur):
+    most_or_least = int(input("\n\nEnter [1] for 5 most free countries or [2] for 5 least free countries: "))
+    if most_or_least == 1:
+        cur.execute("SELECT name FROM country ORDER BY aggregate ASC LIMIT 5;")
+        current = cur.fetchall()
+        if current is not None:
+            for data_tupe in current:
+                for item in data_tupe:
+                    print(item)
+    elif most_or_least == 2:
+        cur.execute("SELECT name from country ORDER BY aggregate DESC LIMIT 5;")
+        current = cur.fetchall()
+        if current is not None:
+            for data_tupe in current:
+                for item in data_tupe:
+                    print(item)
+
 def main():
     while True:
-        first_options = input(("\nGlobal Stats Database. Options:\n\n\t\t[A]dd\n\t\t[S]earch\n\t\t[U]pdate\n\t\t[D]elete\n\n\t\t[Q]uit\n")).lower()
+        first_options = input(("\n\tGlobal Stats Database. Options:\n\n\t\t[A]dd\n\t\t[S]earch\n\t\t[U]pdate\n\t\t[D]elete\n\n\t\t[Q]uit\n")).lower()
         if first_options == 'a' or first_options == 'add':
             add_record(cur)
         elif first_options == 's' or first_options == 'search':
