@@ -10,4 +10,4 @@ atlas.media.mit.edu/en/resources/about/
 
 #How to make the program work:
 
-The country_search.py file will create a table of 17 countries from teh country_data.csv file. It contains the 5 most free countries, the 5 least free, 5 partly free countries, and the USA and Russia. USA is on the list for comparison and Russia is on the list due to current relevance. The country_search_interface.py file will
+The country_search.py file will create a table of 17 countries from teh country_data.csv file. It contains the 5 most free countries, the 5 least free, 5 partly free countries, and the USA and Russia. USA is on the list for comparison and Russia is on the list due to current relevance. The country_search_interface.py file will run a program that will prompt you to add, search, update, or delete from the table. Follow the instructions on the command line.
