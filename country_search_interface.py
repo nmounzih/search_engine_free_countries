@@ -52,7 +52,7 @@ def update_record(cur):
     country_to_update = input("Which country would you like to update? ")
     field_to_update = input("Which field would you like to update? ")
     update_entry = input("Please enter the new entry: ")
-    cur.execute("UPDATE country SET %s=%s WHERE name = %s", (field_to_update, update_entry, country_to_update))
+    cur.execute("UPDATE country SET {} = %s WHERE name = %s".format(field_to_update), (update_entry, country_to_update))
     print("Your information has been saved.")
 
 
