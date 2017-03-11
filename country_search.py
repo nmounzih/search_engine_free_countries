@@ -6,7 +6,7 @@ conn = psycopg2.connect("dbname=search_engine_project user=nadiamounzih host=/tm
 
 cur = conn.cursor()
 
-cur.execute("CREATE TABLE IF NOT EXISTS country (id serial PRIMARY KEY, name varchar, capital varchar, population varchar, aggregate varchar, status varchar, language varchar, export varchar);")
+cur.execute("CREATE TABLE IF NOT EXISTS country (id serial PRIMARY KEY, name varchar, capital varchar, population numeric, aggregate integer, status varchar, language varchar, export varchar);")
 
 country_list = []
 with open("country_data.csv", 'r', newline='') as csvfile:
