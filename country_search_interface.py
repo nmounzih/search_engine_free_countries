@@ -52,18 +52,26 @@ def update_record(cur):
     country_to_update = input("Which country would you like to update? ")
     field_to_update = input("Which field would you like to update? ")
     update_entry = input("Please enter the new entry: ")
-    cur.execute("UPDATE country SET %s = %s WHERE name = %s", (field_to_update, update_entry, country_to_update))
+    cur.execute("UPDATE country SET %s=%s WHERE name =%s", (field_to_update, update_entry, country_to_update))
+    print("Your information has been saved.")
 
+
+def delete_record(cur):
+    country_to_delete = input("Which country do you want to delete? ")
+    cur.execute("DELETE FROM country WHERE name =%s", (country_to_delete,))
+    print("Your information has been saved.")
 
 def main():
     while True:
-        first_options = input(("\nGlobal Stats Database. Options:\n\n\t\t[A]dd\n\t\t[S]earch\n\t\t[U]pdate\n\n\t\t[Q]uit\n")).lower()
+        first_options = input(("\nGlobal Stats Database. Options:\n\n\t\t[A]dd\n\t\t[S]earch\n\t\t[U]pdate\n\t\t[D]elete\n\n\t\t[Q]uit\n")).lower()
         if first_options == 'a' or first_options == 'add':
             add_record(cur)
         elif first_options == 's' or first_options == 'search':
             search_record(cur)
         elif first_options == 'u':
             update_record(cur)
+        elif first_options == 'd':
+            delete_record(cur)
         elif first_options == 'q' or first_options == 'quit':
             exit()
         else:
