@@ -67,14 +67,14 @@ def delete_record(cur):
 def order_record(cur):
     most_or_least = int(input("\n\nEnter [1] for 5 most free countries or [2] for 5 least free countries: "))
     if most_or_least == 1:
-        cur.execute("SELECT name FROM country ORDER BY aggregate ASC LIMIT 5;")
+        cur.execute("SELECT name FROM country ORDER BY aggregate DESC LIMIT 5;")
         current = cur.fetchall()
         if current is not None:
             for data_tupe in current:
                 for item in data_tupe:
                     print(item)
     elif most_or_least == 2:
-        cur.execute("SELECT name from country ORDER BY aggregate DESC LIMIT 5;")
+        cur.execute("SELECT name from country ORDER BY aggregate ASC LIMIT 5;")
         current = cur.fetchall()
         if current is not None:
             for data_tupe in current:
